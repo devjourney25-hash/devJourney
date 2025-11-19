@@ -126,14 +126,12 @@ export default async function LandingPage() {
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 
                 <div className="relative w-20 h-20 mb-6 mx-auto bg-slate-700/30 rounded-xl p-3 group-hover:bg-slate-700/50 transition-all">
-                  {course.imageSrc && (
-                    <Image
-                      src={course.imageSrc}
-                      alt={course.title}
-                      fill
-                      className="object-contain p-2"
-                    />
-                  )}
+                  <Image
+                    src={course.imageSrc || "/LOGO.png"}
+                    alt={course.title}
+                    fill
+                    className="object-contain p-2"
+                  />
                 </div>
                 
                 <h3 className="text-2xl font-bold text-white mb-3 text-center group-hover:text-blue-400 transition-colors">
