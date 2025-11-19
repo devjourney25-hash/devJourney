@@ -17,7 +17,7 @@ export const Items = ({ hearts, points }: Props) => {
   const [pending, startTransition] = useTransition();
 
   const onRefillHearts = () => {
-    if (pending || hearts === 5 || points < POINTS_TO_REFILL) return;
+    if (pending || hearts === 10 || points < POINTS_TO_REFILL) return;
 
     startTransition(async () => {
       try {
@@ -29,7 +29,7 @@ export const Items = ({ hearts, points }: Props) => {
   };
 
   const onBuyOneHeart = () => {
-    if (pending || hearts >= 5 || points < POINTS_FOR_ONE_HEART) return;
+    if (pending || hearts >= 10 || points < POINTS_FOR_ONE_HEART) return;
 
     startTransition(async () => {
       try {
@@ -41,7 +41,7 @@ export const Items = ({ hearts, points }: Props) => {
   };
 
   const onBuyTwoHearts = () => {
-    if (pending || hearts > 3 || points < POINTS_FOR_TWO_HEARTS) return;
+    if (pending || hearts > 8 || points < POINTS_FOR_TWO_HEARTS) return;
 
     startTransition(async () => {
       try {
@@ -52,9 +52,9 @@ export const Items = ({ hearts, points }: Props) => {
     });
   };
 
-  const isBuyOneHeartDisabled = pending || hearts >= 5 || points < POINTS_FOR_ONE_HEART;
-  const isBuyTwoHeartsDisabled = pending || hearts > 3 || points < POINTS_FOR_TWO_HEARTS;
-  const isRefillHeartsDisabled = pending || hearts === 5 || points < POINTS_TO_REFILL;
+  const isBuyOneHeartDisabled = pending || hearts >= 10 || points < POINTS_FOR_ONE_HEART;
+  const isBuyTwoHeartsDisabled = pending || hearts > 8 || points < POINTS_FOR_TWO_HEARTS;
+  const isRefillHeartsDisabled = pending || hearts === 10 || points < POINTS_TO_REFILL;
 
   return (
     <ul className="w-full flex flex-col gap-3 sm:gap-3.5 md:gap-4 lg:gap-5 xl:gap-6">

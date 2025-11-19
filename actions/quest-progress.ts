@@ -53,7 +53,7 @@ export const claimQuestHearts = async (questId: number) => {
   await db
     .update(userProgress)
     .set({
-      hearts: Math.min(currentUserProgress.hearts + heartsReward, 5), // Max 5 hearts
+      hearts: Math.min(currentUserProgress.hearts + heartsReward, 10), // Max 10 hearts
     })
     .where(eq(userProgress.userId, userId));
 

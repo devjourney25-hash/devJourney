@@ -4,11 +4,12 @@ import { getUserProgress } from "@/db/queries";
 import { redirect } from "next/navigation";
 import { FeedWrapper } from "@/components/feed-wrapper";
 import Image from "next/image";
-import { quests } from "@/constants";
+import { quests, MAX_HEARTS } from "@/constants"; // Import MAX_HEARTS
 import { Leaderboard } from "@/components/leaderboard";
 import { DailyTip } from "@/components/DailyTip";
 import { Target, CheckCircle2, Heart } from "lucide-react";
 import { ClaimHeartButton } from "@/components/claim-heart-button";
+import { DailyHeartClaim } from "@/components/daily-heart-claim"; // Import new component
 import db from "@/db/drizzle";
 import { questProgress } from "@/db/schema";
 import { auth } from "@clerk/nextjs/server";
@@ -63,6 +64,15 @@ const QuestPage = async () => {
                 Complete quests by earning points and claim hearts as rewards
               </p>
             </div>
+          </div>
+
+          {/* ✨ NEW: Daily Heart Claim Section */}
+          <div className="w-full mb-4 sm:mb-6">
+            <DailyHeartClaim 
+              lastClaim={userProgress.lastDailyHeartClaim}
+              currentHearts={userProgress.hearts}
+              maxHearts={MAX_HEARTS}
+            />
           </div>
 
           {/* Quests List */}

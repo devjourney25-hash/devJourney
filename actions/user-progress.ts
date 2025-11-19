@@ -135,49 +135,96 @@ export const refillHearts = async () => {
 };
 
 export const buyOneHeart = async () => {
-    const currentUserProgress = await getUserProgress();
+  const currentUserProgress = await getUserProgress();
 
-    if (!currentUserProgress) {
-        throw new Error("User not found");
-    }
-    if (currentUserProgress.points < 50) {
-        throw new Error("Not enough points");
-    }
-    if (currentUserProgress.hearts >= 5) {
-        throw new Error("Hearts are already full");
-    }
+  if (!currentUserProgress) {
+    throw new Error("User not found");
+  }
+  if (currentUserProgress.points < 20) {
+    throw new Error("Not enough points");
+  }
+  if (currentUserProgress.hearts >= 10) {
+    throw new Error("Hearts are already full");
+  }
 
-    await db.update(userProgress).set({
-        hearts: Math.min(currentUserProgress.hearts + 1, 5),
-        points: currentUserProgress.points - 50,
-    }).where(eq(userProgress.userId, currentUserProgress.userId));
+  await db.update(userProgress).set({
+    hearts: Math.min(currentUserProgress.hearts + 1, 5),
+    points: currentUserProgress.points - 50,
+  }).where(eq(userProgress.userId, currentUserProgress.userId));
 
-    revalidatePath("/shop");
-    revalidatePath("/learn");
-    revalidatePath("/quest");
-    revalidatePath("/leaderboard");
+  revalidatePath("/shop");
+  revalidatePath("/learn");
+  revalidatePath("/quest");
+  revalidatePath("/leaderboard");
 };
 
 export const buyTwoHearts = async () => {
-    const currentUserProgress = await getUserProgress();
+  const currentUserProgress = await getUserProgress();
 
-    if (!currentUserProgress) {
-        throw new Error("User not found");
-    }
-    if (currentUserProgress.points < 90) {
-        throw new Error("Not enough points");
-    }
-    if (currentUserProgress.hearts >= 4) {
-        throw new Error("Not enough space for 2 hearts");
-    }
+  if (!currentUserProgress) {
+    throw new Error("User not found");
+  }
+  if (currentUserProgress.points < 50) {
+    throw new Error("Not enough points");
+  }
+  if (currentUserProgress.hearts >= 4) {
+    throw new Error("Not enough space for 2 hearts");
+  }
 
-    await db.update(userProgress).set({
-        hearts: Math.min(currentUserProgress.hearts + 2, 5),
-        points: currentUserProgress.points - 90,
-    }).where(eq(userProgress.userId, currentUserProgress.userId));
+  await db.update(userProgress).set({
+    hearts: Math.min(currentUserProgress.hearts + 2, 10),
+    points: currentUserProgress.points - 50,
+  }).where(eq(userProgress.userId, currentUserProgress.userId));
 
-    revalidatePath("/shop");
-    revalidatePath("/learn");
-    revalidatePath("/quest");
-    revalidatePath("/leaderboard");
+  revalidatePath("/shop");
+  revalidatePath("/learn");
+  revalidatePath("/quest");
+  revalidatePath("/leaderboard");
+};
+
+// ✨ NEW: Daily Heart Claim Function
+export const claimDailyHeart = async () => {
+  const { userId } = await auth();
+  
+  if (!userId) throw new Error("Unauthorized.");
+
+  const currentUserProgress = await getUserProgress();
+
+  if (!currentUserProgress) {
+    throw new Error("User progress not found.");
+  }
+
+  const now = new Date();
+  const lastClaim = currentUserProgress.lastDailyHeartClaim 
+    ? new Date(currentUserProgress.lastDailyHeartClaim) 
+    : null;
+
+  // Check if 24 hours have passed
+  if (lastClaim) {
+    const hoursSinceLastClaim = (now.getTime() - lastClaim.getTime()) / (1000 * 60 * 60);
+    if (hoursSinceLastClaim < 24) {
+      const hoursLeft = Math.ceil(24 - hoursSinceLastClaim);
+      throw new Error(`Come back in ${hoursLeft} hours to claim your daily heart.`);
+    }
+  }
+
+  // Can't exceed max hearts
+  if (currentUserProgress.hearts >= MAX_HEARTS) {
+    throw new Error("Hearts are already full.");
+  }
+
+  await db
+    .update(userProgress)
+    .set({
+      hearts: Math.min(currentUserProgress.hearts + 1, MAX_HEARTS),
+      lastDailyHeartClaim: now,
+    })
+    .where(eq(userProgress.userId, userId));
+
+  revalidatePath("/quests");
+  revalidatePath("/shop");
+  revalidatePath("/learn");
+  revalidatePath("/leaderboard");
+
+  return { success: true };
 };
