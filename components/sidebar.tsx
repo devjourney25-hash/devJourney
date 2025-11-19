@@ -63,12 +63,12 @@ const Sidebar = ({ className, onClose }: Props) => {
       <div className="flex flex-col gap-y-2 flex-1 overflow-y-auto scroll-smooth scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
         <SidebarItem label="Learn" href="/learn" iconSrc="/reading-book.png" />
         <SidebarItem label="Lesson" href="/lessonModule" iconSrc="/open-book (1).png" />
-        <SidebarItem label="IDE" href="/ide" iconSrc="/ide.png" />
+        <SidebarItem label="IDE" href="/ide" iconSrc="/ide-icon.png" />
         <SidebarItem label="Leaderboard" href="/leaderboard" iconSrc="/podium.png" />
         <SidebarItem label="Quest" href="/quest" iconSrc="/paper.png" />
         <SidebarItem label="Shop" href="/shop" iconSrc="/shopping-bag.png" />
         <SidebarItem label="Help & Support" href="/help" iconSrc="/faq.png" />
-        {/* <SidebarItem label="Achievements" href="/achievements" iconSrc="/trophy-icon.png" /> */}
+       
       </div>
 
       {/* Divider */}

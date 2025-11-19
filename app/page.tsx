@@ -28,39 +28,38 @@ export default async function LandingPage() {
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-20 backdrop-blur-lg border-b border-white border-opacity-10">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <img src="/LOGO.png" alt="DevJourney" className="w-10 h-10 rounded-lg" />
-            <span className="text-2xl font-bold text-white">DevJourney</span>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <img src="/LOGO.png" alt="DevJourney" className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg" />
+            <span className="text-xl sm:text-2xl font-bold text-white">DevJourney</span>
           </div>
-         
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-6">
+      <section className="pt-24 sm:pt-32 pb-12 sm:pb-20 px-4 sm:px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-8">
+          <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center">
+            <div className="space-y-6 sm:space-y-8">
               <div className="inline-block">
-                <span className="px-4 py-2 bg-purple-500 bg-opacity-20 rounded-full text-purple-300 text-sm font-medium border border-purple-500 border-opacity-30">
+                <span className="px-3 sm:px-4 py-1.5 sm:py-2 bg-purple-500 bg-opacity-20 rounded-full text-purple-300 text-xs sm:text-sm font-medium border border-purple-500 border-opacity-30">
                   🚀 Interactive Learning Platform
                 </span>
               </div>
-              <h1 className="text-5xl lg:text-7xl font-bold text-white leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-white leading-tight">
                 Master Programming
                 <span className="block bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
                   At Your Own Pace
                 </span>
               </h1>
-              <p className="text-xl text-gray-300 leading-relaxed">
+              <p className="text-base sm:text-lg lg:text-xl text-gray-300 leading-relaxed">
                 Comprehensive programming courses with interactive tutorials, hands-on exercises, and structured learning paths designed for aspiring developers.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                 <Button
                   size="lg"
                   variant="hologram"
-                  className="text-lg px-8 py-6"
+                  className="text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 w-full sm:w-auto"
                   asChild
                 >
                   <Link href="/marketing">
@@ -70,7 +69,7 @@ export default async function LandingPage() {
                 <Button
                   size="lg"
                   variant="sidebar"
-                  className="text-lg px-8 py-6"
+                  className="text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 w-full sm:w-auto"
                   asChild
                 >
                   <Link href="#courses">
@@ -78,22 +77,22 @@ export default async function LandingPage() {
                   </Link>
                 </Button>
               </div>
-              <div className="flex items-center gap-8 pt-4">
+              <div className="flex flex-wrap items-center gap-4 sm:gap-6 lg:gap-8 pt-4">
                 <div>
-                  <p className="text-3xl font-bold text-white">Multiple</p>
-                  <p className="text-gray-400 text-sm">Programming Languages</p>
+                  <p className="text-2xl sm:text-3xl font-bold text-white">Multiple</p>
+                  <p className="text-gray-400 text-xs sm:text-sm">Programming Languages</p>
                 </div>
                 <div>
-                  <p className="text-3xl font-bold text-white">100%</p>
-                  <p className="text-gray-400 text-sm">Self-Paced Learning</p>
+                  <p className="text-2xl sm:text-3xl font-bold text-white">100%</p>
+                  <p className="text-gray-400 text-xs sm:text-sm">Self-Paced Learning</p>
                 </div>
                 <div>
-                  <p className="text-3xl font-bold text-white">24/7</p>
-                  <p className="text-gray-400 text-sm">Access Anywhere</p>
+                  <p className="text-2xl sm:text-3xl font-bold text-white">24/7</p>
+                  <p className="text-gray-400 text-xs sm:text-sm">Access Anywhere</p>
                 </div>
               </div>
             </div>
-            <div className="relative">
+            <div className="relative hidden lg:block">
               <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-3xl blur-3xl opacity-30"></div>
               <img 
                 src="/LOGO.png" 
@@ -106,26 +105,26 @@ export default async function LandingPage() {
       </section>
 
       {/* Available Courses Section */}
-      <section id="courses" className="py-20 px-6 bg-black bg-opacity-30">
+      <section id="courses" className="py-12 sm:py-20 px-4 sm:px-6 bg-black bg-opacity-30">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-4">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4">
               Available Programming Courses
             </h2>
-            <p className="text-xl text-gray-400">
+            <p className="text-base sm:text-lg lg:text-xl text-gray-400 px-4">
               Choose your path and start your development journey
             </p>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto">
             {courses.map((course) => (
               <div 
                 key={course.id}
-                className="group relative p-8 rounded-2xl bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 hover:border-slate-600 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl"
+                className="group relative p-6 sm:p-8 rounded-2xl bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 hover:border-slate-600 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 
-                <div className="relative w-20 h-20 mb-6 mx-auto bg-slate-700/30 rounded-xl p-3 group-hover:bg-slate-700/50 transition-all">
+                <div className="relative w-16 h-16 sm:w-20 sm:h-20 mb-4 sm:mb-6 mx-auto bg-slate-700/30 rounded-xl p-2 sm:p-3 group-hover:bg-slate-700/50 transition-all">
                   <Image
                     src={course.imageSrc || "/LOGO.png"}
                     alt={course.title}
@@ -134,11 +133,11 @@ export default async function LandingPage() {
                   />
                 </div>
                 
-                <h3 className="text-2xl font-bold text-white mb-3 text-center group-hover:text-blue-400 transition-colors">
+                <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 sm:mb-3 text-center group-hover:text-blue-400 transition-colors">
                   {course.title}
                 </h3>
                 
-                <p className="text-gray-400 text-center text-sm leading-relaxed">
+                <p className="text-gray-400 text-center text-xs sm:text-sm leading-relaxed">
                   Master {course.title} with comprehensive tutorials and hands-on practice.
                 </p>
               </div>
@@ -148,58 +147,58 @@ export default async function LandingPage() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 px-6">
+      <section className="py-12 sm:py-20 px-4 sm:px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-4">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4">
               Why Choose DevJourney?
             </h2>
-            <p className="text-xl text-gray-400">
+            <p className="text-base sm:text-lg lg:text-xl text-gray-400 px-4">
               Everything you need to become a skilled developer
             </p>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {/* Interactive Learning */}
-            <div className="group p-8 rounded-2xl bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 hover:border-slate-600 transition-all duration-300 hover:transform hover:scale-105">
-              <div className="w-14 h-14 bg-blue-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-blue-500/20 transition-all">
-                <span className="text-3xl">📚</span>
+            <div className="group p-6 sm:p-8 rounded-2xl bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 hover:border-slate-600 transition-all duration-300 hover:transform hover:scale-105">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 bg-blue-500/10 rounded-xl flex items-center justify-center mb-4 sm:mb-6 group-hover:bg-blue-500/20 transition-all">
+                <span className="text-2xl sm:text-3xl">📚</span>
               </div>
-              <h3 className="text-xl font-bold text-white mb-4">Interactive Tutorials</h3>
-              <p className="text-gray-400 leading-relaxed text-sm">
+              <h3 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4">Interactive Tutorials</h3>
+              <p className="text-gray-400 leading-relaxed text-xs sm:text-sm">
                 Self-paced lessons with hands-on coding exercises and real-time feedback.
               </p>
             </div>
 
             {/* Gamified Learning */}
-            <div className="group p-8 rounded-2xl bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 hover:border-slate-600 transition-all duration-300 hover:transform hover:scale-105">
-              <div className="w-14 h-14 bg-purple-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-purple-500/20 transition-all">
-                <span className="text-3xl">🎮</span>
+            <div className="group p-6 sm:p-8 rounded-2xl bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 hover:border-slate-600 transition-all duration-300 hover:transform hover:scale-105">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 bg-purple-500/10 rounded-xl flex items-center justify-center mb-4 sm:mb-6 group-hover:bg-purple-500/20 transition-all">
+                <span className="text-2xl sm:text-3xl">🎮</span>
               </div>
-              <h3 className="text-xl font-bold text-white mb-4">Gamified Experience</h3>
-              <p className="text-gray-400 leading-relaxed text-sm">
+              <h3 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4">Gamified Experience</h3>
+              <p className="text-gray-400 leading-relaxed text-xs sm:text-sm">
                 Earn achievements, maintain streaks, and track your progress with engaging features.
               </p>
             </div>
 
             {/* Structured Roadmaps */}
-            <div className="group p-8 rounded-2xl bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 hover:border-slate-600 transition-all duration-300 hover:transform hover:scale-105">
-              <div className="w-14 h-14 bg-green-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-green-500/20 transition-all">
-                <span className="text-3xl">🗺️</span>
+            <div className="group p-6 sm:p-8 rounded-2xl bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 hover:border-slate-600 transition-all duration-300 hover:transform hover:scale-105">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 bg-green-500/10 rounded-xl flex items-center justify-center mb-4 sm:mb-6 group-hover:bg-green-500/20 transition-all">
+                <span className="text-2xl sm:text-3xl">🗺️</span>
               </div>
-              <h3 className="text-xl font-bold text-white mb-4">Structured Roadmaps</h3>
-              <p className="text-gray-400 leading-relaxed text-sm">
+              <h3 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4">Structured Roadmaps</h3>
+              <p className="text-gray-400 leading-relaxed text-xs sm:text-sm">
                 Clear learning paths for web development, mobile apps, and system development.
               </p>
             </div>
 
             {/* Practice Quizzes */}
-            <div className="group p-8 rounded-2xl bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 hover:border-slate-600 transition-all duration-300 hover:transform hover:scale-105">
-              <div className="w-14 h-14 bg-indigo-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-indigo-500/20 transition-all">
-                <span className="text-3xl">🧠</span>
+            <div className="group p-6 sm:p-8 rounded-2xl bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 hover:border-slate-600 transition-all duration-300 hover:transform hover:scale-105">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 bg-indigo-500/10 rounded-xl flex items-center justify-center mb-4 sm:mb-6 group-hover:bg-indigo-500/20 transition-all">
+                <span className="text-2xl sm:text-3xl">🧠</span>
               </div>
-              <h3 className="text-xl font-bold text-white mb-4">Interactive Quizzes</h3>
-              <p className="text-gray-400 leading-relaxed text-sm">
+              <h3 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4">Interactive Quizzes</h3>
+              <p className="text-gray-400 leading-relaxed text-xs sm:text-sm">
                 Test your knowledge and reinforce learning with comprehensive practice exercises.
               </p>
             </div>
@@ -208,21 +207,21 @@ export default async function LandingPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-6">
+      <section className="py-12 sm:py-20 px-4 sm:px-6">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="relative p-12 rounded-3xl bg-gradient-to-br from-purple-900 to-pink-900 bg-opacity-30 border border-purple-500 border-opacity-30 backdrop-blur-xl">
+          <div className="relative p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-purple-900 to-pink-900 bg-opacity-30 border border-purple-500 border-opacity-30 backdrop-blur-xl">
             <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-3xl blur-3xl opacity-20"></div>
-            <div className="relative space-y-6">
-              <h2 className="text-4xl lg:text-5xl font-bold text-white">
+            <div className="relative space-y-4 sm:space-y-6">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-white">
                 Ready to Begin Your Development Journey?
               </h2>
-              <p className="text-xl text-gray-300">
+              <p className="text-base sm:text-lg lg:text-xl text-gray-300 px-2">
                 Join aspiring developers mastering programming through interactive, engaging learning experiences.
               </p>
               <Button
                 size="lg"
                 variant="hologram"
-                className="text-lg px-10 py-6 mt-4"
+                className="text-base sm:text-lg px-8 sm:px-10 py-5 sm:py-6 mt-4 w-full sm:w-auto"
                 asChild
               >
                 <Link href="/marketing">
@@ -235,9 +234,9 @@ export default async function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 px-6 border-t border-white border-opacity-10">
+      <footer className="py-6 sm:py-8 px-4 sm:px-6 border-t border-white border-opacity-10">
         <div className="max-w-7xl mx-auto text-center">
-          <p className="text-gray-400">
+          <p className="text-gray-400 text-sm sm:text-base">
             © 2025 DevJourney. Empowering aspiring developers worldwide.
           </p>
         </div>
