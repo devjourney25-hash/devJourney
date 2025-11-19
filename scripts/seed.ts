@@ -1246,44 +1246,33 @@ await db.insert(dailyTips).values([
 ]);
 
 // Insert lesson modules
+// Remove 'id' (auto-increment) and 'imageSrc' (not in schema)
 await db.insert(schema.lessonModules).values([
   {
-    id: 1,
     courseId: 1, // JavaScript
     title: "JavaScript Programming Fundamentals",
     description: "Welcome to the JavaScript lesson! 🚀\n\nThis comprehensive course will walk you through the fundamentals of JavaScript programming, including variables, data types, operators, functions, DOM manipulation, and modern ES6+ features.",
-    imageSrc: "/js.png",
-   
     tip: "Master JavaScript by building interactive web applications, learning frameworks like React/Vue/Angular, practicing algorithm challenges on Codewars or LeetCode, and contributing to open-source projects.",
     order: 1,
   },
   {
-    id: 2,
     courseId: 2, // Java
     title: "Java Programming Complete Guide",
     description: "Welcome to the Java lesson! 🚀\n\nThis course covers everything from Java basics to advanced concepts including OOP principles, collections, multithreading, and enterprise development with Spring Boot.",
-    imageSrc: "/java.png",
-    
     tip: "Master Java by building enterprise applications with Spring Boot, mobile apps with Android, practicing design patterns, and solving problems on HackerRank or LeetCode.",
     order: 2,
   },
   {
-    id: 3,
     courseId: 3, // Python
     title: "Python Programming Mastery",
     description: "Welcome to the Python lesson! 🚀\n\nLearn Python from scratch including syntax, data structures, OOP, web development with Django/Flask, data science libraries, and automation scripting.",
-    imageSrc: "/python.png",
-   
     tip: "Master Python by creating data analysis projects, web applications with Django/Flask, automation scripts, machine learning models, and contributing to Python open-source projects.",
     order: 3,
   },
   {
-    id: 4,
     courseId: 4, // C++
     title: "C++ Programming Deep Dive",
     description: "Welcome to the C++ lesson! 🚀\n\nExplore C++ from fundamentals to advanced topics including memory management, OOP, STL, templates, and system-level programming.",
-    imageSrc: "/c++.png",
-   
     tip: "Master C++ by building game engines, system utilities, competitive programming on Codeforces, embedded systems projects, and studying STL algorithms thoroughly.",
     order: 4,
   },
