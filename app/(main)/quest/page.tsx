@@ -66,7 +66,7 @@ const QuestPage = async () => {
             </div>
           </div>
 
-          {/* ✨ NEW: Daily Heart Claim Section */}
+          {/* ✨ NEW: Daily Heart Claim Sectiontuujjdh5 thr6 */}
           <div className="w-full mb-4 sm:mb-6">
             <DailyHeartClaim 
               lastClaim={userProgress.lastDailyHeartClaim}
