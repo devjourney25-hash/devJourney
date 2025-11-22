@@ -13,7 +13,7 @@ import Confetti from "react-confetti";
 import { useWindowSize, useMount } from "react-use";
 import { useHeartsModal } from "@/store/use-hearts-modal";
 import { usePracticeModal } from "@/store/use-practice-modal";
-import { Trophy } from "lucide-react";
+import { Trophy, Heart } from "lucide-react";
 
 type Props = {
   initialPercentage: number;
@@ -49,6 +49,10 @@ export const Quiz = ({
   const [percentage, setPercentage] = useState(() => {
     return initialPercentage === 100 ? 0 : initialPercentage;
   });
+  
+  // Track if user made any mistakes
+  const [hadMistakes, setHadMistakes] = useState(false);
+  const [perfectCompletion, setPerfectCompletion] = useState(false);
   
   // Challenges come pre-randomized from server - NO CLIENT-SIDE RANDOMIZATION
   const [challenges] = useState(initialLessonChallenges);
@@ -104,12 +108,19 @@ export const Quiz = ({
             }
             setStatus("correct");
             setPercentage((prev) => prev + 100 / challenges.length);
+            
+            // Check if this is the last challenge and award bonus heart
+            if (activeIndex === challenges.length - 1 && !hadMistakes) {
+              setPerfectCompletion(true);
+              setHearts((prev) => prev + 1);
+            }
           })
           .catch(() => {
             console.error("Something went wrong, please try again");
           });
       });
     } else {
+      setHadMistakes(true); // Mark that user made a mistake
       startTransition(() => {
         reduceHearts(challenge.id)
           .then((response) => {
@@ -141,27 +152,40 @@ export const Quiz = ({
           numberOfPieces={500}
           colors={['#3B82F6', '#8B5CF6', '#10B981', '#F59E0B', '#EC4899']}
         />
-        <div className="flex flex-col gap-y-6 lg:gap-y-8 max-w-lg mx-auto text-center items-center justify-center h-full px-6 animate-in fade-in zoom-in duration-700">
+        <div className="flex flex-col gap-y-4 sm:gap-y-6 lg:gap-y-8 max-w-lg mx-auto text-center items-center justify-center h-full px-4 sm:px-6 animate-in fade-in zoom-in duration-700">
           {/* Trophy Icon */}
           <div className="relative">
             <div className="absolute inset-0 bg-yellow-500/30 rounded-full blur-3xl animate-pulse"></div>
-            <div className="relative bg-gradient-to-br from-yellow-600 to-orange-600 p-6 rounded-full border-4 border-yellow-500/50 shadow-2xl shadow-yellow-500/30">
-              <Trophy className="w-16 h-16 lg:w-20 lg:h-20 text-white" />
+            <div className="relative bg-gradient-to-br from-yellow-600 to-orange-600 p-4 sm:p-6 rounded-full border-4 border-yellow-500/50 shadow-2xl shadow-yellow-500/30">
+              <Trophy className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 text-white" />
             </div>
           </div>
 
           {/* Success Message */}
-          <div className="space-y-3">
-            <h1 className="text-3xl lg:text-4xl font-bold text-white drop-shadow-lg">
+          <div className="space-y-2 sm:space-y-3">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white drop-shadow-lg">
               Outstanding Work!
             </h1>
-            <p className="text-lg lg:text-xl text-gray-300">
+            <p className="text-base sm:text-lg lg:text-xl text-gray-300">
               You've completed the lesson
             </p>
           </div>
 
+          {/* Perfect Completion Bonus */}
+          {perfectCompletion && (
+            <div className="bg-gradient-to-r from-red-500/20 to-rose-500/20 border-2 border-red-500/50 rounded-xl p-3 sm:p-4 animate-in slide-in-from-top duration-500 w-full">
+              <div className="flex items-center justify-center gap-2 sm:gap-3">
+                <Heart className="w-5 h-5 sm:w-6 sm:h-6 text-red-400 fill-red-400" />
+                <span className="text-base sm:text-lg lg:text-xl font-bold text-white">
+                  Perfect! +2 Bonus Hearts!
+                </span>
+                <Heart className="w-5 h-5 sm:w-6 sm:h-6 text-red-400 fill-red-400" />
+              </div>
+            </div>
+          )}
+
           {/* Results Cards */}
-          <div className="flex items-center gap-x-4 w-full mt-4">
+          <div className="flex items-center gap-x-3 sm:gap-x-4 w-full mt-2 sm:mt-4">
             <ResultCard variant="points" value={challenges.length * 10} />
             <ResultCard variant="hearts" value={hearts} />
           </div>
@@ -177,7 +201,7 @@ export const Quiz = ({
 
   return (
     <>
-      <div className="flex flex-col min-h-screen pb-[120px]">
+      <div className="flex flex-col min-h-screen pb-[100px] sm:pb-[120px]">
         <Header hearts={hearts} percentage={percentage} />
         
         <div className="flex-1 flex items-center justify-center mt-0 sm:mt-12 w-full px-4 sm:px-6">

@@ -8,7 +8,7 @@ import {
 
 export const UnitList = () => {
   return (
-    <List>
+    <List perPage={1000} pagination={false}>
       <Datagrid rowClick="edit">
         <NumberField source="id" />
         <TextField source="title" />

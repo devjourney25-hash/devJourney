@@ -158,7 +158,7 @@ const HelpPage = async () => {
                         </div>
                     </div>
 
-                    {/* Connect With Us */}
+                    {/* Connect With Us 
                     <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-8 border border-slate-700">
                         <h2 className="text-2xl font-bold text-white mb-6 text-center">Connect With Us</h2>
                         <div className="flex justify-center gap-6">
@@ -208,68 +208,8 @@ const HelpPage = async () => {
                                 </div>
                             </Link>
                         </div>
-                    </div>
+                    </div> */}
 
-                    {/* Support Section */}
-                    <div className="bg-gradient-to-br from-green-900/30 to-emerald-900/30 backdrop-blur-sm rounded-2xl p-8 border border-green-500/20">
-                        <div className="flex items-center justify-center gap-3 mb-4">
-                            <Heart className="w-8 h-8 text-red-400" />
-                            <h2 className="text-2xl font-bold text-white">Support DevJourney</h2>
-                        </div>
-                        <p className="text-center text-gray-300 mb-6">
-                            Your support helps us improve the platform and create better learning experiences for aspiring developers!
-                        </p>
-                        <div className="flex justify-center gap-8 flex-wrap">
-                            <Link 
-                                href="https://gcash.com" 
-                                target="_blank"
-                                className="group"
-                            >
-                                <div className="bg-slate-800/60 rounded-xl p-4 border border-slate-700 group-hover:border-slate-600 transition-colors">
-                                    <Image 
-                                        src="/gcash.png" 
-                                        alt="GCash" 
-                                        width={80} 
-                                        height={40} 
-                                        className="object-contain"
-                                        style={{ width: 'auto', height: 'auto' }}
-                                    />
-                                </div>
-                            </Link>
-                            <Link 
-                                href="https://paypal.com" 
-                                target="_blank"
-                                className="group"
-                            >
-                                <div className="bg-slate-800/60 rounded-xl p-4 border border-slate-700 group-hover:border-slate-600 transition-colors">
-                                    <Image 
-                                        src="/paypal.webp" 
-                                        alt="PayPal" 
-                                        width={80} 
-                                        height={40} 
-                                        className="object-contain"
-                                        style={{ width: 'auto', height: 'auto' }}
-                                    />
-                                </div>
-                            </Link>
-                            <Link 
-                                href="https://paymaya.com" 
-                                target="_blank"
-                                className="group"
-                            >
-                                <div className="bg-slate-800/60 rounded-xl p-4 border border-slate-700 group-hover:border-slate-600 transition-colors">
-                                    <Image 
-                                        src="/PayMayaLogo.jpg" 
-                                        alt="PayMaya" 
-                                        width={80} 
-                                        height={40} 
-                                        className="object-contain"
-                                        style={{ width: 'auto', height: 'auto' }}
-                                    />
-                                </div>
-                            </Link>
-                        </div>
-                    </div>
 
                     {/* Contact Footer */}
                     <div className="bg-slate-800 rounded-2xl p-6 text-center border border-slate-700">

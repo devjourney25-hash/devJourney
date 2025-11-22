@@ -67,7 +67,7 @@ const Sidebar = ({ className, onClose }: Props) => {
         <SidebarItem label="Leaderboard" href="/leaderboard" iconSrc="/podium.png" />
         <SidebarItem label="Quest" href="/quest" iconSrc="/paper.png" />
         <SidebarItem label="Shop" href="/shop" iconSrc="/shopping-bag.png" />
-        <SidebarItem label="Help & Support" href="/help" iconSrc="/faq.png" />
+        <SidebarItem label="About Us" href="/help" iconSrc="/faq.png" />
        
       </div>
 

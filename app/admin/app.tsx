@@ -1,7 +1,7 @@
 "use client";
 
 import simpleRestProvider from "ra-data-simple-rest";
-import { Admin, Resource, DataProvider, fetchUtils } from "react-admin";
+import { Admin, Resource } from "react-admin";
 
 import { ChallengeCreate } from "./challenge/create";
 import { ChallengeEdit } from "./challenge/edit";
@@ -30,71 +30,7 @@ import { UnitDetailList } from "./unitDetail/list";
 import { UnitDetailCreate } from "./unitDetail/create";
 import { UnitDetailEdit } from "./unitDetail/edit";
 
-// Custom HTTP client to handle file uploads
-const httpClient = (url: string, options: fetchUtils.Options = {}) => {
-  if (!options.headers) {
-    options.headers = new Headers({ Accept: "application/json" });
-  }
-
-  if (options.body && typeof options.body === "string") {
-    try {
-      const body = JSON.parse(options.body);
-      console.log("📦 Parsed body:", body);
-
-      // Check if there's an image input value with a blob URL
-      if (body.imageSrc && typeof body.imageSrc === "object" && body.imageSrc.src) {
-        if (body.imageSrc.src.startsWith("blob:")) {
-          console.log("🖼️ Found blob URL, fetching file...");
-          
-          // Fetch the blob and convert to File
-          return fetch(body.imageSrc.src)
-            .then(res => res.blob())
-            .then(blob => {
-              console.log("✅ Blob fetched:", blob.type, blob.size);
-              
-              const formData = new FormData();
-              const file = new File([blob], body.imageSrc.title || "image.png", { type: blob.type });
-              
-              console.log("📁 Created File:", file.name, file.size);
-              
-              // Add all fields to FormData
-              Object.keys(body).forEach(key => {
-                if (key === "imageSrc") {
-                  formData.append(key, file);
-                  console.log("✅ Added file to FormData");
-                } else if (body[key] !== null && body[key] !== undefined) {
-                  formData.append(key, String(body[key]));
-                  console.log(`➕ Added field ${key}:`, body[key]);
-                }
-              });
-
-              const headers = new Headers(options.headers);
-              headers.delete("Content-Type");
-
-              console.log("🚀 Sending FormData request");
-              return fetchUtils.fetchJson(url, {
-                ...options,
-                body: formData,
-                headers,
-              });
-            })
-            .catch(error => {
-              console.error("❌ Error fetching blob:", error);
-              throw error;
-            });
-        }
-      }
-
-      console.log("⚠️ No blob URL found, sending as JSON");
-    } catch (e) {
-      console.error("❌ Error parsing request body:", e);
-    }
-  }
-
-  return fetchUtils.fetchJson(url, options);
-};
-
-const dataProvider = simpleRestProvider("/api", httpClient) as DataProvider;
+const dataProvider = simpleRestProvider("/api") as any;
 
 const App = () => {
   return (

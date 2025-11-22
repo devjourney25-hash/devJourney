@@ -15,7 +15,7 @@ export const DailyTipList = () => {
   ];
 
   return (
-    <List>
+    <List perPage={100} pagination={false}>
       <Datagrid rowClick="edit">
         <TextField source="id" />
         <TextField source="title" />

@@ -2,7 +2,7 @@ import { Datagrid, List, NumberField, TextField, ReferenceField } from "react-ad
 
 export const UnitDetailList = () => {
   return (
-    <List>
+    <List perPage={1000} pagination={false}>
       <Datagrid rowClick="edit">
         <NumberField source="id" />
         <ReferenceField source="lessonModuleId" reference="lessonModules" label="Lesson Module">

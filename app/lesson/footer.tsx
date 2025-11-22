@@ -22,7 +22,7 @@ export const Footer = ({
   return (
     <footer
       className={cn(
-        "h-[100px] lg:h-[100px] fixed bottom-0 left-0 right-0 w-full transition-all duration-300 backdrop-blur-lg border-t",
+        "h-[80px] sm:h-[90px] lg:h-[100px] fixed bottom-0 left-0 right-0 w-full transition-all duration-300 backdrop-blur-lg border-t",
         // Default state
         status === "none" && "bg-slate-900/95 border-slate-700",
         // Correct state
@@ -35,49 +35,49 @@ export const Footer = ({
     >
       {/* Top gradient line */}
       <div className={cn(
-        "h-1 w-full",
+        "h-0.5 sm:h-1 w-full",
         status === "correct" && "bg-gradient-to-r from-transparent via-green-400 to-transparent",
         status === "wrong" && "bg-gradient-to-r from-transparent via-red-400 to-transparent",
         status === "completed" && "bg-gradient-to-r from-transparent via-blue-400 to-transparent",
         status === "none" && "bg-gradient-to-r from-transparent via-slate-600 to-transparent"
       )} />
 
-      <div className="max-w-[1140px] h-full mx-auto flex items-center justify-between px-6 lg:px-10">
+      <div className="max-w-[1140px] h-full mx-auto flex items-center justify-between px-3 sm:px-4 md:px-6 lg:px-10 py-3 sm:py-4 gap-2 sm:gap-3">
         {/* Status Messages */}
         {status === "correct" && (
-          <div className="text-green-300 font-bold text-sm sm:text-base lg:text-xl flex items-center gap-2 sm:gap-3 animate-in fade-in slide-in-from-left duration-300">
-            <div className="bg-green-500/20 p-1.5 sm:p-2 rounded-full border border-green-500/30">
-              <CheckCircle className="h-5 w-5 sm:h-6 sm:w-6 lg:h-7 lg:w-7 text-green-400" />
+          <div className="text-green-300 font-bold text-xs sm:text-sm lg:text-base xl:text-xl flex items-center gap-1.5 sm:gap-2 lg:gap-3 animate-in fade-in slide-in-from-left duration-300 flex-shrink min-w-0">
+            <div className="bg-green-500/20 p-1 sm:p-1.5 lg:p-2 rounded-full border border-green-500/30 flex-shrink-0">
+              <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 xl:h-7 xl:w-7 text-green-400" />
             </div>
-            <span className="drop-shadow-lg">Nicely Done!</span>
+            <span className="drop-shadow-lg truncate">Nicely Done!</span>
           </div>
         )}
         
         {status === "wrong" && (
-          <div className="text-red-300 font-bold text-sm sm:text-base lg:text-xl flex items-center gap-2 sm:gap-3 animate-in fade-in slide-in-from-left duration-300">
-            <div className="bg-red-500/20 p-1.5 sm:p-2 rounded-full border border-red-500/30">
-              <XCircle className="h-5 w-5 sm:h-6 sm:w-6 lg:h-7 lg:w-7 text-red-400" />
+          <div className="text-red-300 font-bold text-xs sm:text-sm lg:text-base xl:text-xl flex items-center gap-1.5 sm:gap-2 lg:gap-3 animate-in fade-in slide-in-from-left duration-300 flex-shrink min-w-0">
+            <div className="bg-red-500/20 p-1 sm:p-1.5 lg:p-2 rounded-full border border-red-500/30 flex-shrink-0">
+              <XCircle className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 xl:h-7 xl:w-7 text-red-400" />
             </div>
-            <span className="drop-shadow-lg">Try Again</span>
+            <span className="drop-shadow-lg truncate">Try Again</span>
           </div>
         )}
         
         {status === "completed" && (
-          <div className="flex items-center gap-2 sm:gap-4">
-            <div className="text-blue-300 font-bold text-sm sm:text-base lg:text-xl flex items-center gap-2 sm:gap-3 animate-in fade-in slide-in-from-left duration-300">
-              <div className="bg-blue-500/20 p-1.5 sm:p-2 rounded-full border border-blue-500/30">
-                <Sparkles className="h-5 w-5 sm:h-6 sm:w-6 lg:h-7 lg:w-7 text-blue-400" />
+          <div className="flex items-center gap-1.5 sm:gap-2 md:gap-3 lg:gap-4 flex-1 min-w-0">
+            <div className="text-blue-300 font-bold text-xs sm:text-sm lg:text-base xl:text-xl flex items-center gap-1.5 sm:gap-2 lg:gap-3 animate-in fade-in slide-in-from-left duration-300 flex-shrink min-w-0">
+              <div className="bg-blue-500/20 p-1 sm:p-1.5 lg:p-2 rounded-full border border-blue-500/30 flex-shrink-0">
+                <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 xl:h-7 xl:w-7 text-blue-400" />
               </div>
-              <span className="drop-shadow-lg hidden sm:inline">Lesson Complete!</span>
-              <span className="drop-shadow-lg sm:hidden">Complete!</span>
+              <span className="drop-shadow-lg hidden sm:inline truncate">Lesson Complete!</span>
+              <span className="drop-shadow-lg sm:hidden truncate">Complete!</span>
             </div>
             <Button
               variant="dark"
               size={isMobile ? "sm" : "default"}
               onClick={() => window.location.href = `/lesson/${lessonId}`}
-              className="bg-slate-700 hover:bg-slate-600 border-slate-600"
+              className="bg-slate-700 hover:bg-slate-600 border-slate-600 text-xs sm:text-sm whitespace-nowrap flex-shrink-0"
             >
-              Practice Again
+              Practice
             </Button>
           </div>
         )}
@@ -86,7 +86,7 @@ export const Footer = ({
         <Button
           disabled={disabled}
           className={cn(
-            "ml-auto font-bold shadow-lg transition-all",
+            "ml-auto font-bold shadow-lg transition-all text-xs sm:text-sm lg:text-base whitespace-nowrap flex-shrink-0",
             status === "correct" && "bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 border-green-700 shadow-green-500/30",
             status === "wrong" && "bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 border-red-700 shadow-red-500/30",
             status === "none" && "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 border-blue-700 shadow-blue-500/30",

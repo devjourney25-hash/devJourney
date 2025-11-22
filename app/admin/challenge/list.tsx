@@ -9,7 +9,7 @@ import {
 
 export const ChallengeList = () => {
   return (
-    <List>
+    <List perPage={1000} pagination={false}>
       <Datagrid rowClick="edit">
         <NumberField source="id" />
         <TextField source="question" />

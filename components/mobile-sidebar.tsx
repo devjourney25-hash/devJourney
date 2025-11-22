@@ -82,7 +82,7 @@ const MobileSidebar = () => {
               <SidebarItem label="Shop" href="/shop" iconSrc="/shopping-bag.png" />
             </div>
             <div onClick={() => setOpen(false)}>
-              <SidebarItem label="Help & Support" href="/help" iconSrc="/faq.png" />
+              <SidebarItem label="About Us" href="/help" iconSrc="/faq.png" />
             </div>
           </div>
 
