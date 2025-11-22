@@ -1,5 +1,4 @@
 import { cache } from "react";
-
 import { auth } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
 import db from "./drizzle";
@@ -9,10 +8,9 @@ import {
   lessons,
   units,
   userProgress,
-  lessonModules,  // ← ADD THIS LINE
+  lessonModules,
   dailyTips,
-  unitDetails,      // ← Keep this if you have dailyTips queries
-
+  unitDetails,
 } from "./schema";
 
 const DAY_IN_MS = 86_400_000;
@@ -218,7 +216,6 @@ export const getLessonPercentage = cache(async () => {
   return percentage;
 });
 
-
 export const getTopTenUsers = cache(async () => {
   const { userId } = await auth();
 
@@ -237,15 +234,10 @@ export const getTopTenUsers = cache(async () => {
 
   return data;
 });
-  
 
-
-
-
-
-// Add these functions to your existing queries file
-
-
+// ============================================
+// DAILY TIPS QUERIES
+// ============================================
 export const getDailyTips = cache(async () => {
   const data = await db.query.dailyTips.findMany({
     orderBy: (dailyTips, { desc }) => [desc(dailyTips.createdAt)],
@@ -291,15 +283,17 @@ export const getDailyTipById = cache(async (id: number) => {
   return data;
 });
 
-// Update these specific query functions in your queries.ts file
+// ============================================
+// LESSON MODULES QUERIES (Learning Content)
+// ============================================
 
-// 1. UPDATE: getLessonModuleByCourseId - Add unitDetails relation
+// Get lesson module by course ID with all unit details
 export const getLessonModuleByCourseId = cache(async (courseId: number) => {
   const data = await db.query.lessonModules.findFirst({
     where: eq(lessonModules.courseId, courseId),
     with: {
       course: true,
-      unitDetails: {  // ADD THIS
+      unitDetails: {
         orderBy: (unitDetails, { asc }) => [asc(unitDetails.order)],
       },
     },
@@ -308,13 +302,13 @@ export const getLessonModuleByCourseId = cache(async (courseId: number) => {
   return data;
 });
 
-// 2. UPDATE: getAllLessonModules - Add unitDetails relation
+// Get all lesson modules with their unit details
 export const getAllLessonModules = cache(async () => {
   const data = await db.query.lessonModules.findMany({
     orderBy: (lessonModules, { asc }) => [asc(lessonModules.order)],
     with: {
       course: true,
-      unitDetails: {  // ADD THIS
+      unitDetails: {
         orderBy: (unitDetails, { asc }) => [asc(unitDetails.order)],
       },
     },
@@ -323,13 +317,13 @@ export const getAllLessonModules = cache(async () => {
   return data;
 });
 
-// 3. UPDATE: getLessonModuleById - Add unitDetails relation
+// Get a specific lesson module by ID
 export const getLessonModuleById = cache(async (id: number) => {
   const data = await db.query.lessonModules.findFirst({
     where: eq(lessonModules.id, id),
     with: {
       course: true,
-      unitDetails: {  // ADD THIS
+      unitDetails: {
         orderBy: (unitDetails, { asc }) => [asc(unitDetails.order)],
       },
     },
@@ -338,13 +332,17 @@ export const getLessonModuleById = cache(async (id: number) => {
   return data;
 });
 
-// 4. CHANGE: getUnitDetailByLessonModuleId (renamed from getUnitDetailByUnitId)
-export const getUnitDetailByLessonModuleId = cache(async (lessonModuleId: number) => {
+// ============================================
+// UNIT DETAILS QUERIES (Learning Content Details)
+// ============================================
+
+// Get all unit details for a specific lesson module
+export const getUnitDetailsByLessonModuleId = cache(async (lessonModuleId: number) => {
   const data = await db.query.unitDetails.findMany({
-    where: eq(unitDetails.lessonModuleId, lessonModuleId), // CHANGED from unitId
+    where: eq(unitDetails.lessonModuleId, lessonModuleId),
     orderBy: (unitDetails, { asc }) => [asc(unitDetails.order)],
     with: {
-      lessonModule: {  // CHANGED from unit
+      lessonModule: {
         with: {
           course: true,
         },
@@ -355,32 +353,54 @@ export const getUnitDetailByLessonModuleId = cache(async (lessonModuleId: number
   return data;
 });
 
-// 5. REMOVE or UPDATE: getUnitWithDetails
-// This function doesn't make sense anymore since unitDetails belong to lessonModules
-// Either remove it or update it to just get unit info without unitDetails:
-export const getUnitWithDetails = cache(async (unitId: number) => {
-  const data = await db.query.units.findFirst({
-    where: eq(units.id, unitId),
+// Get a specific unit detail by ID
+export const getUnitDetailById = cache(async (id: number) => {
+  const data = await db.query.unitDetails.findFirst({
+    where: eq(unitDetails.id, id),
     with: {
-      course: true,
-      lessons: {
-        orderBy: (lessons, { asc }) => [asc(lessons.order)],
+      lessonModule: {
+        with: {
+          course: true,
+        },
       },
-      // REMOVE unitDetails - it doesn't exist here anymore
     },
   });
 
   return data;
 });
 
-// 6. UPDATE: getAllUnitDetails
+// Get all unit details across all lesson modules
 export const getAllUnitDetails = cache(async () => {
   const data = await db.query.unitDetails.findMany({
     orderBy: (unitDetails, { asc }) => [asc(unitDetails.order)],
     with: {
-      lessonModule: {  // CHANGED from unit
+      lessonModule: {
         with: {
           course: true,
+        },
+      },
+    },
+  });
+
+  return data;
+});
+
+// ============================================
+// UNITS QUERIES (Quiz/Challenge Units)
+// ============================================
+
+// Get a unit with its lessons and challenges (for quiz system)
+export const getUnitById = cache(async (unitId: number) => {
+  const data = await db.query.units.findFirst({
+    where: eq(units.id, unitId),
+    with: {
+      course: true,
+      lessons: {
+        orderBy: (lessons, { asc }) => [asc(lessons.order)],
+        with: {
+          challenges: {
+            orderBy: (challenges, { asc }) => [asc(challenges.order)],
+          },
         },
       },
     },
