@@ -61,8 +61,9 @@ const Sidebar = ({ className, onClose }: Props) => {
 
       {/* Navigation Items */}
       <div className="flex flex-col gap-y-2 flex-1 overflow-y-auto scroll-smooth scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
+         <SidebarItem label="Lesson" href="/lessonModule" iconSrc="/open-book (1).png" />
         <SidebarItem label="Learn" href="/learn" iconSrc="/reading-book.png" />
-        <SidebarItem label="Lesson" href="/lessonModule" iconSrc="/open-book (1).png" />
+       
         <SidebarItem label="IDE" href="/ide" iconSrc="/Ide.png" />
         <SidebarItem label="Leaderboard" href="/leaderboard" iconSrc="/podium.png" />
         <SidebarItem label="Quest" href="/quest" iconSrc="/paper.png" />

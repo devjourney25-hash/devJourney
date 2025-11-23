@@ -63,12 +63,14 @@ const MobileSidebar = () => {
 
           {/* Navigation Items */}
           <div className="flex flex-col gap-y-2 flex-1 overflow-y-auto scroll-smooth scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent px-4">
-            <div onClick={() => setOpen(false)}>
-              <SidebarItem label="Learn" href="/learn" iconSrc="/reading-book.png" />
-            </div>
-            <div onClick={() => setOpen(false)}>
+          
+           <div onClick={() => setOpen(false)}>
               <SidebarItem label="Lesson" href="/lessonModule" iconSrc="/open-book (1).png" />
             </div>
+           <div onClick={() => setOpen(false)}>
+              <SidebarItem label="Learn" href="/learn" iconSrc="/reading-book.png" />
+            </div>
+           
             <div onClick={() => setOpen(false)}>
               <SidebarItem label="IDE" href="/ide" iconSrc="/Ide.png" />
             </div>

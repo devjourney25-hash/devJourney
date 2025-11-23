@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button"; 
-import { Check, BookOpen, Lightbulb, ArrowRight } from "lucide-react";
+import { Check, BookOpen, Lightbulb, ArrowRight, ArrowLeft } from "lucide-react";
 import { UnitDetailsSlider } from "./[courseId]/unit-details-slider";
 
 interface LessonModuleContentProps {
@@ -30,6 +30,19 @@ export const LessonModuleContent = ({
 
   return (
     <div className="w-full"> 
+      {/* Back Button - Positioned at the top */}
+      <div className="w-full px-4 sm:px-6 py-4">
+        <Link href="/courses">
+          <Button 
+            variant="ghost" 
+            size="sm"
+            className="hover:bg-slate-800/50 transition-colors group"
+          >
+            <ArrowLeft className="h-5 w-5 stroke-2 text-gray-400 group-hover:text-blue-400 transition-colors" />
+          </Button>
+        </Link>
+      </div>
+
       {/* Hero Section - Mobile Responsive */}
       <div className="relative overflow-hidden bg-gradient-to-r from-blue-600/20 to-purple-600/20 border-b border-white/10">
         <div className="w-full px-4 sm:px-6 py-8 sm:py-12 lg:py-16">

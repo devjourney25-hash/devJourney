@@ -50,11 +50,10 @@ export const Quiz = ({
     return initialPercentage === 100 ? 0 : initialPercentage;
   });
   
-  // Track if user made any mistakes
-  const [hadMistakes, setHadMistakes] = useState(false);
-  const [perfectCompletion, setPerfectCompletion] = useState(false);
+  // Track hearts awarded for this lesson completion
+  const [heartsAwarded, setHeartsAwarded] = useState(0);
   
-  // Challenges come pre-randomized from server - NO CLIENT-SIDE RANDOMIZATION
+  // Challenges come pre-randomized from server
   const [challenges] = useState(initialLessonChallenges);
   
   const [activeIndex, setActiveIndex] = useState(() => {
@@ -106,13 +105,21 @@ export const Quiz = ({
               openHeartsModal();
               return;
             }
+            
+            // Don't show hearts awarded for practice mode
+            if (response?.isPractice) {
+              setStatus("correct");
+              setPercentage((prev) => prev + 100 / challenges.length);
+              return;
+            }
+            
             setStatus("correct");
             setPercentage((prev) => prev + 100 / challenges.length);
             
-            // Check if this is the last challenge and award bonus heart
-            if (activeIndex === challenges.length - 1 && !hadMistakes) {
-              setPerfectCompletion(true);
-              setHearts((prev) => prev + 1);
+            // Check if hearts were awarded for completing the lesson
+            if (response?.heartsAwarded && response.heartsAwarded > 0) {
+              setHeartsAwarded(response.heartsAwarded);
+              setHearts((prev) => prev + response.heartsAwarded);
             }
           })
           .catch(() => {
@@ -120,7 +127,6 @@ export const Quiz = ({
           });
       });
     } else {
-      setHadMistakes(true); // Mark that user made a mistake
       startTransition(() => {
         reduceHearts(challenge.id)
           .then((response) => {
@@ -171,13 +177,17 @@ export const Quiz = ({
             </p>
           </div>
 
-          {/* Perfect Completion Bonus */}
-          {perfectCompletion && (
-            <div className="bg-gradient-to-r from-red-500/20 to-rose-500/20 border-2 border-red-500/50 rounded-xl p-3 sm:p-4 animate-in slide-in-from-top duration-500 w-full">
+          {/* Heart Bonus Display */}
+          {heartsAwarded > 0 && (
+            <div className={`bg-gradient-to-r ${
+              heartsAwarded === 2 
+                ? 'from-red-500/20 to-rose-500/20 border-red-500/50' 
+                : 'from-orange-500/20 to-red-500/20 border-orange-500/50'
+            } border-2 rounded-xl p-3 sm:p-4 animate-in slide-in-from-top duration-500 w-full`}>
               <div className="flex items-center justify-center gap-2 sm:gap-3">
                 <Heart className="w-5 h-5 sm:w-6 sm:h-6 text-red-400 fill-red-400" />
                 <span className="text-base sm:text-lg lg:text-xl font-bold text-white">
-                  Perfect! +2 Bonus Hearts!
+                  {heartsAwarded === 2 ? 'Perfect! +2 Hearts!' : 'Good Job! +1 Heart!'}
                 </span>
                 <Heart className="w-5 h-5 sm:w-6 sm:h-6 text-red-400 fill-red-400" />
               </div>

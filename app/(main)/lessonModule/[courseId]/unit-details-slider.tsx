@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { ChevronLeft, ChevronRight, Code, CheckCircle, Lightbulb } from "lucide-react";
+import { useState, useMemo } from "react";
+import { ChevronLeft, ChevronRight, Code, CheckCircle, Lightbulb, Search, X } from "lucide-react";
 
 type Props = {
   unitDetails: any[];
@@ -9,11 +9,27 @@ type Props = {
 
 export const UnitDetailsSlider = ({ unitDetails }: Props) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [showSearch, setShowSearch] = useState(false);
 
-  const currentSection = unitDetails[currentIndex];
+  // Filter unit details based on search query
+  const filteredUnitDetails = useMemo(() => {
+    if (!searchQuery.trim()) return unitDetails;
+    
+    const query = searchQuery.toLowerCase();
+    return unitDetails.filter((detail) => {
+      const titleMatch = detail.title?.toLowerCase().includes(query);
+      const contentMatch = detail.content?.toLowerCase().includes(query);
+      const codeMatch = detail.sampleCode?.toLowerCase().includes(query);
+      
+      return titleMatch || contentMatch || codeMatch;
+    });
+  }, [unitDetails, searchQuery]);
+
+  const currentSection = filteredUnitDetails[currentIndex];
 
   const goToNext = () => {
-    if (currentIndex < unitDetails.length - 1) {
+    if (currentIndex < filteredUnitDetails.length - 1) {
       setCurrentIndex(currentIndex + 1);
     }
   };
@@ -24,7 +40,33 @@ export const UnitDetailsSlider = ({ unitDetails }: Props) => {
     }
   };
 
-  if (!currentSection) return null;
+  const handleSearchChange = (value: string) => {
+    setSearchQuery(value);
+    setCurrentIndex(0); // Reset to first result when searching
+  };
+
+  const clearSearch = () => {
+    setSearchQuery("");
+    setCurrentIndex(0);
+  };
+
+  if (!currentSection) {
+    return (
+      <div className="bg-white/5 backdrop-blur-md rounded-xl sm:rounded-2xl p-8 border border-white/10 text-center">
+        <p className="text-white/60 text-sm sm:text-base">
+          {searchQuery ? "No sections found matching your search." : "No content available."}
+        </p>
+        {searchQuery && (
+          <button
+            onClick={clearSearch}
+            className="mt-4 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg text-white text-sm transition-colors"
+          >
+            Clear Search
+          </button>
+        )}
+      </div>
+    );
+  }
 
   let keyPoints: string[] = [];
   if (currentSection.keyPoints) {
@@ -40,6 +82,46 @@ export const UnitDetailsSlider = ({ unitDetails }: Props) => {
 
   return (
     <div className="bg-white/5 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 border border-white/10">
+      {/* Search Bar */}
+      <div className="mb-4 sm:mb-6">
+        {showSearch ? (
+          <div className="relative">
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => handleSearchChange(e.target.value)}
+              placeholder="Search sections by title, content, or code..."
+              className="w-full bg-slate-900/50 text-white placeholder-white/40 rounded-lg pl-10 pr-10 py-2.5 sm:py-3 text-sm sm:text-base border border-white/20 focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-400/50 transition-all"
+              autoFocus
+            />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-white/40" />
+            <button
+              onClick={() => {
+                setShowSearch(false);
+                clearSearch();
+              }}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-white/60 hover:text-white transition-colors"
+            >
+              <X className="w-4 h-4 sm:w-5 sm:h-5" />
+            </button>
+          </div>
+        ) : (
+          <button
+            onClick={() => setShowSearch(true)}
+            className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg text-white/80 hover:text-white text-sm transition-all"
+          >
+            <Search className="w-4 h-4" />
+            <span>Search sections</span>
+          </button>
+        )}
+        
+        {searchQuery && (
+          <p className="mt-2 text-xs sm:text-sm text-white/60">
+            Found {filteredUnitDetails.length} section{filteredUnitDetails.length !== 1 ? 's' : ''}
+          </p>
+        )}
+      </div>
+
       {/* Navigation Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 sm:mb-6 pb-4 sm:pb-6 border-b border-white/10 gap-3 sm:gap-4">
         <div className="flex items-center gap-2 sm:gap-3 lg:gap-4 min-w-0 flex-1">
@@ -48,7 +130,8 @@ export const UnitDetailsSlider = ({ unitDetails }: Props) => {
           </div>
           <div className="min-w-0 flex-1">
             <p className="text-white/60 text-xs sm:text-sm">
-              Section {currentIndex + 1} of {unitDetails.length}
+              Section {currentIndex + 1} of {filteredUnitDetails.length}
+              {searchQuery && ` (filtered)`}
             </p>
             <h3 className="text-base sm:text-lg lg:text-xl xl:text-2xl font-bold text-white line-clamp-2 sm:truncate">{currentSection.title}</h3>
           </div>
@@ -64,7 +147,7 @@ export const UnitDetailsSlider = ({ unitDetails }: Props) => {
           </button>
           <button
             onClick={goToNext}
-            disabled={currentIndex === unitDetails.length - 1}
+            disabled={currentIndex === filteredUnitDetails.length - 1}
             className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-white/10 hover:bg-white/20 disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center transition-all"
           >
             <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
@@ -74,7 +157,7 @@ export const UnitDetailsSlider = ({ unitDetails }: Props) => {
 
       {/* Progress Dots */}
       <div className="flex justify-center gap-1.5 sm:gap-2 mb-6 sm:mb-8 overflow-x-auto pb-2">
-        {unitDetails.map((_, index) => (
+        {filteredUnitDetails.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentIndex(index)}
@@ -139,7 +222,7 @@ export const UnitDetailsSlider = ({ unitDetails }: Props) => {
       {/* Bottom Navigation Hint */}
       <div className="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-white/10 text-center">
         <p className="text-white/60 text-xs sm:text-sm">
-          Use arrows above or click the dots to navigate between sections
+          Use arrows, dots, or search to navigate between sections
         </p>
       </div>
     </div>

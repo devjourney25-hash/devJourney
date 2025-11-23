@@ -24,7 +24,7 @@ export const List = ({ courses, activeCourseId }: Props) => {
     if (pending) return;
 
     if (id === activeCourseId) {
-      return router.push("/learn");
+      return router.push("/lessonModule");
     }
 
     startTransition(async () => {
@@ -39,7 +39,7 @@ export const List = ({ courses, activeCourseId }: Props) => {
           return;
         }
 
-        router.push("/learn");
+        router.push("/lessonModule");
       } catch (error) {
         toast.error("Something went wrong", {
           description: "Failed to update your progress. Please try again.",
