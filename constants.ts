@@ -1,7 +1,7 @@
 
 
 export const POINTS_TO_REFILL= 100;
-export const POINTS_FOR_ONE_HEART = 20;
+export const POINTS_FOR_ONE_HEART = 30;
 export const POINTS_FOR_TWO_HEARTS = 50;
 export const MAX_HEARTS = 10;
 

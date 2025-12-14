@@ -148,8 +148,8 @@ export const buyOneHeart = async () => {
   }
 
   await db.update(userProgress).set({
-    hearts: Math.min(currentUserProgress.hearts + 1, 5),
-    points: currentUserProgress.points - 50,
+    hearts: Math.min(currentUserProgress.hearts + 1, 10),
+    points: currentUserProgress.points - 30,
   }).where(eq(userProgress.userId, currentUserProgress.userId));
 
   revalidatePath("/shop");
@@ -167,7 +167,7 @@ export const buyTwoHearts = async () => {
   if (currentUserProgress.points < 50) {
     throw new Error("Not enough points");
   }
-  if (currentUserProgress.hearts >= 4) {
+  if (currentUserProgress.hearts >= 9) {
     throw new Error("Not enough space for 2 hearts");
   }
 

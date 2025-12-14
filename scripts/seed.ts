@@ -513,7 +513,7 @@ let withParens = (2 + 3) * 4;     // 20`,
       // Lesson 2 challenges
       { id: 10, lessonId: 2, type: "SELECT", order: 1, question: "which of the following is true regarding block scope" },
       { id: 11, lessonId: 2, type: "SELECT", order: 2, question: "what is the scope varibales declared using let inside a block?" },
-      { id: 12, lessonId: 2, type: "SELECT", order: 3, question: "which statement best descrribe for global scope " },
+      { id: 12, lessonId: 2, type: "SELECT", order: 3, question: "which statement best describe for global scope " },
       { id: 13, lessonId: 2, type: "SELECT", order: 4, question: "Which variables declaration would be accessible outside of a block " },
       { id: 14, lessonId: 2, type: "SELECT", order: 5, question: "what is the global scope in javascript " },
       { id: 15, lessonId: 2, type: "SELECT", order: 6, question: "which scope is created when a function is declared?" },
